@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 black = "*"
+crispy-bootstrap5 = "*"
+django-crispy-forms = "*"
 
 [dev-packages]
 

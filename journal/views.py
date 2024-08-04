@@ -1,7 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-
 from .forms import CreateUserForm, LoginForm
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 def homepage(request):
@@ -9,12 +10,12 @@ def homepage(request):
 
 
 def register(request):
-
     form = CreateUserForm()
     if request.method == "POST":
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Account was created for " + form.cleaned_data.get("username"))
             return redirect("my-login")
     context = {"RegistrationForm": form}
     return render(request, "journal/register.html", context)
@@ -40,5 +41,6 @@ def user_logout(request):
     return render(request, "journal/index.html")
 
 
+@login_required(login_url="my-login")
 def dashboard(request):
     return render(request, "journal/dashboard.html")
