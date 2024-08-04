@@ -14,15 +14,17 @@
                     <p id="message-timer" class="alert alert-primary float-center text-center">{{ message }}</p>
                 {% endif %}
             {% endfor %}
-          <form method="POST" autocomplete="off" class="custom-form form-layout">
+          <form method="POST" autocomplete="off" class="custom-form">
             {% csrf_token %}
             <div class="mb-3">{{ LoginForm|crispy }}</div>
-            <button
+           <div class="center-button">
+              <button
               type="submit"
-              class="btn btn-primary w-50"
+              class="btn btn-primary w-25"
             >
               Login
             </button>
+          </div>    
           </form>
         </div>
       </div>

@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .forms import CreateUserForm, LoginForm
+from .forms import CreateUserForm, LoginForm, ThoughtForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
@@ -46,3 +46,14 @@ def user_logout(request):
 @login_required(login_url="my-login")
 def dashboard(request):
     return render(request, "journal/dashboard.html")
+
+
+@login_required(login_url="my-login")
+def create_thought(request):
+    form = ThoughtForm()
+    if request.method == "POST":
+        form = ThoughtForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("dashboard")
+    return render(request, "journal/create-thought.html")
