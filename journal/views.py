@@ -15,7 +15,9 @@ def register(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Account was created for " + form.cleaned_data.get("username"))
+            messages.success(
+                request, "Account was created for " + form.cleaned_data.get("username")
+            )
             return redirect("my-login")
     context = {"RegistrationForm": form}
     return render(request, "journal/register.html", context)

@@ -10,15 +10,13 @@
         <div class="card-body">
           <h3 class="card-title text-center">Create your account</h3>
           <h5 class="card-subtitle text-center mb-4">Share your thoughts</h5>
-          {% for message in messages %}
-            
-            {% endfor %}
+
             <form method="POST" autocomplete="off" class="custom-form, form-layout">
             {% csrf_token %}
             <div class="mb-3">{{ RegistrationForm|crispy }}</div>
             <button
               type="submit"
-              class="btn btn-primary"
+              class="btn btn-primary w-50"
             >
               Create account
             </button>
