@@ -10,6 +10,7 @@ class ThoughtForm(ModelForm):
     class Meta:
         model = Thought
         fields = ["title", "content"]
+        exclude = ["user"]
 
         widgets = {
             "title": TextInput(attrs={"class": "form-control", "placeholder": "Title"}),

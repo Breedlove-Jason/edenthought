@@ -54,6 +54,13 @@ def create_thought(request):
     if request.method == "POST":
         form = ThoughtForm(request.POST)
         if form.is_valid():
-            form.save()
+            thought = form.save(commit=False)
+            thought.user = request.user  # Correctly set the user field
+            thought.save()
             return redirect("dashboard")
-    return render(request, "journal/create-thought.html")
+    context = {"CreateThoughtForm": form}
+    return render(request, "journal/create-thought.html", context)
+
+
+def my_thoughts(request):
+    pass
