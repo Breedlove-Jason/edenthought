@@ -27,7 +27,7 @@ def register(request):
             form.save()
             profile = Profile.objects.create(user=current_user)
             messages.success(
-                request, "Account was created for " + form.cleaned_data.get("username")
+                request, "User created" + form.cleaned_data.get("username")
             )
             return redirect("my-login")
     context = {"RegistrationForm": form}
@@ -56,7 +56,9 @@ def user_logout(request):
 
 @login_required(login_url="my-login")
 def dashboard(request):
-    return render(request, "journal/dashboard.html")
+    profile_pic, created = Profile.objects.get_or_create(user=request.user)
+    context = {"profilePic": profile_pic}
+    return render(request, "journal/dashboard.html", context)
 
 
 @login_required(login_url="my-login")
@@ -120,6 +122,17 @@ def profile_management(request):
 
     context = {"UpdateUserForm": form}
     return render(request, "journal/profile-management.html", context)
+
+
+@login_required(login_url="my-login")
+def update_profile_picture(request):
+    if request.method == "POST":
+        profile = Profile.objects.get(user=request.user)
+        profile.profile_pic = request.FILES.get("profile_pic", "default.png")
+        profile.save()
+        messages.success(request, "Profile picture updated successfully")
+        return redirect("dashboard")
+    return render(request, "journal/update-profile-picture.html")
 
 
 @login_required(login_url="my-login")

@@ -9,7 +9,8 @@
                 <h1 class="text-center mb-4 headings">Edenthought | Dashboard</h1>
                 <div class="card center-content ">
                     <div class="card-body">
-                        <h3 class="card-title">{{ user }}</h3>
+                        <h3 class="card-title">Welcome, &nbsp; {{ user }}</h3>
+                        <img src="{{ profilePic.profile_pic.url }}" class="avatar">
                         <a class="btn btn-outline-primary w-100" type="button" href="{% url 'user-logout' %}">Logout</a>
                     </div>
                 </div>
