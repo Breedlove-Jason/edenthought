@@ -14,7 +14,8 @@
                         <p class="card-text">{{ thought.content }}</p>
                             <p>{{ thought.date_posted }}</p>
                             <p>Created by: &nbsp;{{ thought.user }}</p>
-                            <a href="{% url 'update-thought' thought.id %}"><button class="btn btn-outline-primary">Update Thought</button></a>
+                            <a href="{% url 'update-thought' thought.id %}"><button class="btn btn-outline-success">Update Thought</button></a>
+                            <a href="{% url 'delete-thought' thought.id %}"><button class="btn btn-outline-danger">Delete Thought</button></a>
                             <br>
                             <hr>
                         {% endfor %}
