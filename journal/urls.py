@@ -11,4 +11,6 @@ urlpatterns = [
     path("my-thoughts/", views.my_thoughts, name="my-thoughts"),
     path("update-thought/<int:pk>/", views.update_thought, name="update-thought"),
     path("delete-thought/<int:pk>/", views.delete_thought, name="delete-thought"),
+    path("profile-management/", views.profile_management, name="profile-management"),
+    path("delete-account/", views.delete_account, name="delete-account"),
 ]

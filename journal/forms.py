@@ -1,8 +1,9 @@
+from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from django import forms
-from django.forms.widgets import PasswordInput, TextInput
 from django.forms import ModelForm
+from django.forms.widgets import PasswordInput, TextInput
+
 from .models import Thought
 
 
@@ -46,3 +47,25 @@ class LoginForm(AuthenticationForm):
     password = forms.CharField(
         widget=PasswordInput(attrs={"class": "form-control", "placeholder": "Password"})
     )
+
+
+class UpdateUserForm(forms.ModelForm):
+    password = None
+
+    class Meta:
+        model = User
+        fields = [
+            "username",
+            "email",
+        ]
+        exclude = [
+            "password1",
+            "password2",
+        ]
+
+        widgets = {
+            "username": TextInput(
+                attrs={"class": "form-control", "placeholder": "Username"}
+            ),
+            "email": TextInput(attrs={"class": "form-control", "placeholder": "Email"}),
+        }
