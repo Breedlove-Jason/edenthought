@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from .forms import CreateUserForm, LoginForm, ThoughtForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .models import Thought
 
 
 def homepage(request):
@@ -62,5 +63,9 @@ def create_thought(request):
     return render(request, "journal/create-thought.html", context)
 
 
+@login_required(login_url="my-login")
 def my_thoughts(request):
-    pass
+    current_user = request.user.id
+    thought = Thought.objects.all().filter(user=current_user)
+    context = {"AllThoughts": thought}
+    return render(request, "journal/my-thoughts.html", context)
