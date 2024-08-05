@@ -4,8 +4,14 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 
-from .forms import CreateUserForm, LoginForm, ThoughtForm, UpdateUserForm
-from .models import Thought
+from .forms import (
+    CreateUserForm,
+    LoginForm,
+    ThoughtForm,
+    UpdateUserForm,
+    UpdateProfileForm,
+)
+from .models import Thought, Profile
 
 
 def homepage(request):
@@ -17,7 +23,9 @@ def register(request):
     if request.method == "POST":
         form = CreateUserForm(request.POST)
         if form.is_valid():
+            current_user = form.save(commit=False)
             form.save()
+            profile = Profile.objects.create(user=current_user)
             messages.success(
                 request, "Account was created for " + form.cleaned_data.get("username")
             )
