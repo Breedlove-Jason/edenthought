@@ -9,4 +9,6 @@ urlpatterns = [
     path("user-logout/", views.user_logout, name="user-logout"),
     path("create-thought/", views.create_thought, name="create-thought"),
     path("my-thoughts/", views.my_thoughts, name="my-thoughts"),
+    path("update-thought/<int:pk>/", views.update_thought, name="update-thought"),
+    path("delete-thought/<int:pk>/", views.delete_thought, name="delete-thought"),
 ]

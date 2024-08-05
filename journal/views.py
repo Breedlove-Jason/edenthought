@@ -58,7 +58,7 @@ def create_thought(request):
             thought = form.save(commit=False)
             thought.user = request.user  # Correctly set the user field
             thought.save()
-            return redirect("dashboard")
+            return redirect("my-thoughts")
     context = {"CreateThoughtForm": form}
     return render(request, "journal/create-thought.html", context)
 
@@ -69,3 +69,25 @@ def my_thoughts(request):
     thought = Thought.objects.all().filter(user=current_user)
     context = {"AllThoughts": thought}
     return render(request, "journal/my-thoughts.html", context)
+
+
+@login_required(login_url="my-login")
+def update_thought(request, pk):
+    try:
+        thought = Thought.objects.get(id=pk, user=request.user)
+    except:
+        return redirect("my-thoughts")
+    form = ThoughtForm(instance=thought)
+    if request.method == "POST":
+        form = ThoughtForm(request.POST, instance=thought)
+        if form.is_valid():
+            form.save()
+            return redirect("my-thoughts")
+    context = {"UpdateThought": form}
+    return render(request, "journal/update-thought.html", context)
+
+
+@login_required(login_url="my-login")
+def delete_thought(request, pk):
+
+    return render(request, 'journal/delete-thought.html')
