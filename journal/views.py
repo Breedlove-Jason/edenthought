@@ -114,31 +114,27 @@ def delete_thought(request, pk):
 @login_required(login_url="my-login")
 def profile_management(request):
     form = UpdateUserForm(instance=request.user)
-    profile = Profile.objects.get(user=request.user)
-    form_2 = UpdateProfileForm(instance=profile)
     if request.method == "POST":
         form = UpdateUserForm(request.POST, instance=request.user)
-        form_2 = UpdateProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             return redirect("dashboard")
-        if form_2.is_valid():
-            form_2.save()
-            return redirect("dashboard")
-
-    context = {"UserUpdateForm": form, "ProfileUpdateForm": form_2}
+    context = {"UserUpdateForm": form}
     return render(request, "journal/profile-management.html", context)
 
 
 @login_required(login_url="my-login")
 def upload_profile_pic(request):
+    profile = Profile.objects.get(user=request.user)
+    form_2 = UpdateProfileForm(instance=profile)
     if request.method == "POST":
-        profile = Profile.objects.get(user=request.user)
-        profile.profile_pic = request.FILES.get("profile_pic", "default.png")
-        profile.save()
-        messages.success(request, "Profile picture updated successfully")
-        return redirect("dashboard")
-    return render(request, "journal/update-profile-pic.html")
+        form_2 = UpdateProfileForm(request.POST, request.FILES, instance=profile)
+        if form_2.is_valid():
+            form_2.save()
+            messages.success(request, "Profile picture updated successfully")
+            return redirect("dashboard")
+    context = {"ProfileUpdateForm": form_2}
+    return render(request, "journal/upload-profile-pic.html", context)
 
 
 @login_required(login_url="my-login")

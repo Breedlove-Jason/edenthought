@@ -40,3 +40,8 @@
     border-radius: 50%;
     object-fit: cover;
 }
+.custom-file-input {
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+}

@@ -1,5 +1,5 @@
 {% extends 'journal/base.html' %}
-
+{% load crispy_forms_tags %}
 {% block title %}Update Profile Picture{% endblock %}
 
 {% block content %}
@@ -11,11 +11,12 @@
                     <div class="card-body">
                         <form method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
-                            <div class="form-group">
-                                <label for="profile_pic">Upload Profile Picture</label>
-                                <input type="file" class="form-control" id="profile_pic" name="profile_pic">
+                            <div class="mb-3">{{ UpdateProfileForm|crispy }}</div>
+                            <div class="mb-3">
+                                <label for="profile_pic" class="form-label">Upload Profile Picture</label>
+                                <input type="file" class="form-control custom-file-input" id="profile_pic" name="profile_pic">
                             </div>
-                            <button type="submit" class="btn btn-primary mt-3">Update</button>
+                            <button type="submit" class="btn btn-outline-primary w-50">Update</button>
                         </form>
                     </div>
                 </div>
