@@ -9,6 +9,7 @@ black = "*"
 crispy-bootstrap5 = "*"
 django-crispy-forms = "*"
 pillow = "*"
+python-decouple = "*"
 
 [dev-packages]
 

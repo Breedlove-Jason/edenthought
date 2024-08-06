@@ -126,14 +126,14 @@ def profile_management(request):
 @login_required(login_url="my-login")
 def upload_profile_pic(request):
     profile = Profile.objects.get(user=request.user)
-    form_2 = UpdateProfileForm(instance=profile)
+    form = UpdateProfileForm(instance=profile)
     if request.method == "POST":
-        form_2 = UpdateProfileForm(request.POST, request.FILES, instance=profile)
-        if form_2.is_valid():
-            form_2.save()
-            messages.success(request, "Profile picture updated successfully")
+        form = UpdateProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            # messages.success(request, "Profile picture updated successfully")
             return redirect("dashboard")
-    context = {"ProfileUpdateForm": form_2}
+    context = {"ProfileUpdateForm": form}
     return render(request, "journal/upload-profile-pic.html", context)
 
 

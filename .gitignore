@@ -16,6 +16,7 @@ media
 ### Example user template
 
 # IntelliJ project files
+*.env
 .idea
 .idea/*
 *.iml
