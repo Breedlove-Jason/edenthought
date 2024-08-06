@@ -29,14 +29,8 @@ def register(request):
             form.save()
             send_mail(
                 "Welcome to Edenthought",
-                """
-            Hello,
-                We're excited to have you join our community!
-                Explore all the features we have to offer and feel free to get in touch with any inquiries you may have. We're here to help and make sure your experience with us is nothing short of excellent.
-                Keep an eye on your inbox for tips, tricks, and the latest updates from us!
-                Happy exploring!
-            """,
-                settings.EMAIL_HOST_USER,
+                "Hello, We're excited to have you join our community!",
+                settings.DEFAULT_FROM_EMAIL,
                 [current_user.email],
             )
             profile = Profile.objects.create(user=current_user)
