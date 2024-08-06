@@ -12,6 +12,8 @@ from .forms import (
     UpdateProfileForm,
 )
 from .models import Thought, Profile
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 def homepage(request):
@@ -25,9 +27,21 @@ def register(request):
         if form.is_valid():
             current_user = form.save(commit=False)
             form.save()
+            send_mail(
+                "Welcome to Edenthought",
+                """
+            Hello,
+                We're excited to have you join our community!
+                Explore all the features we have to offer and feel free to get in touch with any inquiries you may have. We're here to help and make sure your experience with us is nothing short of excellent.
+                Keep an eye on your inbox for tips, tricks, and the latest updates from us!
+                Happy exploring!
+            """,
+                settings.EMAIL_HOST_USER,
+                [current_user.email],
+            )
             profile = Profile.objects.create(user=current_user)
             messages.success(
-                request, "User created" + form.cleaned_data.get("username")
+                request, "User created... " + form.cleaned_data.get("username")
             )
             return redirect("my-login")
     context = {"RegistrationForm": form}

@@ -37,17 +37,23 @@ urlpatterns = [
     ),
     path(
         "reset_password_sent",
-        auth_views.PasswordResetDoneView.as_view(template_name="journal/password-reset-sent.html"),
+        auth_views.PasswordResetDoneView.as_view(
+            template_name="journal/password-reset-sent.html"
+        ),
         name="password_reset_done",
     ),
     path(
         "reset/<uidb64>/<token>/",
-        auth_views.PasswordResetConfirmView.as_view(template_name="journal/password-reset-form.html"),
+        auth_views.PasswordResetConfirmView.as_view(
+            template_name="journal/password-reset-form.html"
+        ),
         name="password_reset_confirm",
     ),
     path(
         "password_reset_complete/",
-        auth_views.PasswordResetCompleteView.as_view(template_name="journal/password-reset-complete.html"),
+        auth_views.PasswordResetCompleteView.as_view(
+            template_name="journal/password-reset-complete.html"
+        ),
         name="password_reset_complete",
     ),
 ]
