@@ -12,17 +12,20 @@
                         <h3 class="card-title text-center">Manage your profile here...</h3>
                         <form method="POST" autocomplete="off">
                             {% csrf_token %}
-                            <div class="mb-3">{{ UpdateUserForm|crispy }}</div>
+                            <div class="mb-3">{{ UserUpdateForm|crispy }}</div>
                             <div class="center-button">
                                 <button
                                         type="submit"
-                                        class="btn w-50 btn-outline-primary"
+                                        class="btn w-50 btn-outline-primary pb-2"
                                 >
                                     Update Profile
                                 </button>
                                 &nbsp;
                                 &nbsp;
-                                <a class="btn btn-outline-danger w-50" type="button" href="{% url 'delete-account' %}">Delete Account</a>
+                                <a class="btn btn-outline-danger w-50 p-3" type="button" href="{% url 'delete-account' %}">Delete Account</a>
+                                &nbsp;
+                                &nbsp;
+                                <a class="btn btn-outline-primary w-50 p-3" type="button" href="{% url 'upload-profile-pic' %}">Upload Picture</a>
                             </div>
                         </form>
                     </div>

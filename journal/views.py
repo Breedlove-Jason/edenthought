@@ -114,25 +114,31 @@ def delete_thought(request, pk):
 @login_required(login_url="my-login")
 def profile_management(request):
     form = UpdateUserForm(instance=request.user)
+    profile = Profile.objects.get(user=request.user)
+    form_2 = UpdateProfileForm(instance=profile)
     if request.method == "POST":
         form = UpdateUserForm(request.POST, instance=request.user)
+        form_2 = UpdateProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             return redirect("dashboard")
+        if form_2.is_valid():
+            form_2.save()
+            return redirect("dashboard")
 
-    context = {"UpdateUserForm": form}
+    context = {"UserUpdateForm": form, "ProfileUpdateForm": form_2}
     return render(request, "journal/profile-management.html", context)
 
 
 @login_required(login_url="my-login")
-def update_profile_picture(request):
+def upload_profile_pic(request):
     if request.method == "POST":
         profile = Profile.objects.get(user=request.user)
         profile.profile_pic = request.FILES.get("profile_pic", "default.png")
         profile.save()
         messages.success(request, "Profile picture updated successfully")
         return redirect("dashboard")
-    return render(request, "journal/update-profile-picture.html")
+    return render(request, "journal/update-profile-pic.html")
 
 
 @login_required(login_url="my-login")
