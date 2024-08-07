@@ -27,12 +27,12 @@ def register(request):
         if form.is_valid():
             current_user = form.save(commit=False)
             form.save()
-            send_mail(
-                "Welcome to Edenthought",
-                "Hello, We're excited to have you join our community!",
-                settings.DEFAULT_FROM_EMAIL,
-                [current_user.email],
-            )
+            # send_mail(
+            #     "Welcome to Edenthought",
+            #     "Hello, We're excited to have you join our community!",
+            #     settings.DEFAULT_FROM_EMAIL,
+            #     [current_user.email],
+            # )
             profile = Profile.objects.create(user=current_user)
             messages.success(
                 request, "User created... " + form.cleaned_data.get("username")
