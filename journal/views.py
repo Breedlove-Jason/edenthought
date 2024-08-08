@@ -33,9 +33,11 @@ def register(request):
             #     settings.DEFAULT_FROM_EMAIL,
             #     [current_user.email],
             # )
-            profile = Profile.objects.create(user=current_user)
+            profile = Profile.objects.create(
+                user=current_user, profile_pic="default.png"
+            )
             messages.success(
-                request, "User created... " + form.cleaned_data.get("username")
+                request, "User created for:  " + form.cleaned_data.get("username")
             )
             return redirect("my-login")
     context = {"RegistrationForm": form}
